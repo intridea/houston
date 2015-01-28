@@ -75,10 +75,9 @@ gem 'unicorn'
 
 gem "omniauth"
 gem "omniauth-google-oauth2", "~> 0.1.17"
-
 gem "acts_as_paranoid", "~>0.4.0"
-
 gem 'paper_trail', '>= 3.0.0.rc1'
+gem "haml-rails", "~> 0.4.0"
 
 # confluence integration
 gem 'confluence-soap'
@@ -94,3 +93,4 @@ end
 
 gem 'cancan'
 gem 'rest-client'
+
