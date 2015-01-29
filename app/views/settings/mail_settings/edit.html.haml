@@ -1,0 +1,30 @@
+= link_to "<< Back to Settings", settings_path
+.well
+  = form_tag settings_update_mail_settings_path, method: :put do
+    .control-group
+      = label_tag 'from', 'From address', :class => 'control-label'
+      .controls
+        = text_field_tag 'from', Configuration::Mailer.from
+    .control-group
+      = label_tag 'scheduler_email', 'Scheduler email', :class => 'control-label'
+      .controls
+        = text_field_tag 'scheduler_email', Configuration::Mailer.scheduler_email
+    .control-group
+      = label_tag 'host', 'SMTP host', :class => 'control-label'
+      .controls
+        = text_field_tag 'host', Configuration::Mailer.host
+    .control-group
+      = label_tag 'port', 'SMTP port', :class => 'control-label'
+      .controls
+        = text_field_tag 'port', Configuration::Mailer.port
+    .control-group
+      = label_tag 'user_name', 'SMTP username', :class => 'control-label'
+      .controls
+        = text_field_tag 'user_name', Configuration::Mailer.user_name
+    .control-group
+      = label_tag 'password', 'SMTP password', :class => 'control-label'
+      .controls
+        = text_field_tag 'password', Configuration::Mailer.password
+    .form-actions
+      = submit_tag "Save", :class => 'btn btn-primary'
+      = link_to 'Cancel', settings_edit_mail_settings_path, :class => 'btn'

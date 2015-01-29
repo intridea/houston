@@ -1,0 +1,34 @@
+- if @config.errors.any?
+  #error_explanation
+    %h2
+      = pluralize(@config.errors.count, "error")
+      prohibited this configuration from being saved:
+    %ul
+      - @config.errors.full_messages.each do |msg|
+        %li
+          * #{msg}
+.row
+  .col-md-4
+    %h2 Option 1: Fill in basic info and get ready to log in users!
+    = form_for @config, :url => setup_path, :as => 'config_form', :html => { :class => 'form-horizontal setup' } do |f|
+      .control-group
+        = f.label "Google Oauth Client ID", :class => 'control-label'
+        .controls
+          = f.text_field :client_id, :class => 'text_field'
+      .control-group
+        = f.label "Google Oauth Client Secret", :class => 'control-label'
+        .controls
+          = f.text_field :client_secret, :class => 'text_field'
+      .control-group
+        = f.label "Your Google Email", :class => 'control-label'
+        .controls
+          = f.text_field :email, :class => 'text_field'
+          %p.hint (for SuperAdmin powers)
+      %br/
+      .form-actions
+        = f.submit "Let's do this", :class => 'btn btn-primary'
+  .col-md-2
+  - if unset_mode?
+    .col-md-4
+      %h2 Option 2: Click below to enter demo mode. The fastest way to have fun.
+      = link_to 'Switch to Demo Mode', switch_mode_path(to: 'demo'), :class => 'btn btn-primary'

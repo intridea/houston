@@ -1,0 +1,39 @@
+- model_class = Skill
+%h1= t '.title', :default => model_class.model_name.human.pluralize
+= form_tag skills_path, method: :get, :html => { :class => 'form-horizontal' }  do
+  .control-group
+    = text_field_tag :query, params[:query]
+    = submit_tag "Search", name: nil, :class => 'btn btn-primary'
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:importance)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @skills.each do |skill|
+      %tr
+        %td= skill.name
+        %td= skill.importance
+        %td= l skill.created_at, format: :short
+        %td
+          - if can? :show, skill
+            = link_to t('.show', :default => t("helpers.links.show")), |
+              skill_path(skill), :class => 'btn btn-mini'              |
+          - if can? :update, skill
+            = link_to t('.edit', :default => t("helpers.links.edit")), |
+              edit_skill_path(skill), :class => 'btn btn-mini'         |
+          - if can? :destroy, skill
+            = link_to t('.destroy',                             |
+              :default => t("helpers.links.destroy")),          |
+              skill_path(skill),                                |
+              :method => :delete,                               |
+              :data => { :confirm => t('.confirm',              |
+                         :default => t("helpers.links.confirm", |
+                         :default => 'Are you sure?')) },       |
+              :class => 'btn btn-mini btn-danger'               |
+- if can? :create, Skill
+  = link_to t('.new', :default => t("helpers.links.new")), |
+    new_skill_path,                                        |
+    :class => 'btn btn-primary'                            |

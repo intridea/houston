@@ -1,0 +1,17 @@
+#my_schedule.vis-mod.my_schedule
+  %h3 My Schedule
+  .btn-group
+    - options = my_schedule_dropdown_options
+    - this_week = options.find {|opt| opt[0] =~ /^This Week/ }
+    %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", "data-week" => this_week[1], :type => "button"}
+      = this_week[0]
+      \:
+      %span.caret
+    %ul.dropdown-menu{:role => "menu"}
+      - options.each do |(text, week)|
+        %li{ :style => (week == this_week[1] ? "display:none;" : ""), "data-week" => week }
+          = link_to text, '#'
+  .progress.progress-striped.active{:style => "margin-top: 20px;"}
+    .progress-bar.progress-bar-info{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "100", :role => "progressbar", :style => "width: 100%"}
+      %span.sr-only 100% Complete
+  %ul#schedule

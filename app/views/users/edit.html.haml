@@ -1,0 +1,28 @@
+%ul.nav.nav-tabs
+  %li.active
+    %a{:href => ""} Settings
+  %li
+    = link_to "Skills", skills_user_path(@user)
+= form_for setup_user(@user), :html => { :class => 'form-horizontal' } do |f|
+  %fieldset
+    %legend Edit User Settings
+    .control-group
+      = f.label :group_id, :class => 'control-label'
+      .controls
+        - groups_array = Group.order("name ASC").map { |group| [group.name, group.id] }
+        = f.select :group_id, groups_array
+    .control-group
+      = f.label :name, :class => 'control-label'
+      .controls
+        = f.text_field :name, :class => 'text_field'
+    .control-group
+      = f.label :email, :class => 'control-label'
+      .controls
+        = f.text_field :email, :class => 'text_field'
+    .control-group
+      = f.label :role, :class => 'control-label'
+      .controls
+        = f.select :role, User::ROLES, :class => 'text_field'
+    .form-actions
+      = f.submit "Update User Settings", :class => 'btn btn-primary'
+      = link_to 'Cancel', users_path, :class => 'btn'

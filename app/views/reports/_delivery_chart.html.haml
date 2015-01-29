@@ -1,0 +1,31 @@
+.well
+  %h4
+    Active Client Projects
+    %br/
+  %table#active-projects.table
+    %thead
+      %tr
+        %th{:width => "200"} &#160;
+        %th{:width => "350"} Milestones, Used vs Projected, Remaining
+        %th{:colspan => "2"} Get 'er Done
+        %th{:width => "20"} Hours Used
+        %th{:width => "20"} Hours Rem.
+        %th{:width => "20"} Weeks Rem.
+    %tbody
+      - if !projects.empty?
+        - projects.each do |proj|
+          - hours_budget = (proj.hours_budget.to_i || 0)
+          - hours_used = (proj.hours_used.to_i || 0)
+          - hours_remaining = (hours_budget - hours_used)
+          %tr
+            %td.proj-name= proj.name
+            %td.chart-green{"data-end" => proj.date_target.to_time.to_i, "data-expected" => proj.expected_progress, "data-milestones" => proj.milestones.to_json, "data-remaining" => hours_remaining, "data-start" => proj.date_kickoff.to_time.to_i, "data-used" => hours_used}
+            %td= proj.date_target.strftime('%m/%d')
+            %td.muted= proj.fuzzy_due_date
+            %td= hours_used
+            %td= hours_remaining
+            %td= proj.weeks_remaining
+      - else
+        %tr
+          %td &#160;
+          %td.muted{:colspan => "4"} No projects!

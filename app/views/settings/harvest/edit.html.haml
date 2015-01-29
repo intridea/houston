@@ -1,0 +1,26 @@
+= link_to "<< Back to Settings", settings_path
+.well
+  %p
+    %label{:for => ""} Access Token
+    %span= current_user.harvest_token
+  %p
+    %label{:for => ""} Refresh Token
+    %span= current_user.harvest_refresh_token
+  %p
+    %label{:for => ""} Expired At
+    %span= current_user.expires_at
+  %p
+    %a.btn.btn-primary{:href => "/auth/harvest"} Auth Harvest
+.well
+  = form_tag settings_update_harvest_path, method: :put do
+    .control-group
+      = label_tag 'identifier', 'Harvest API Identifier', :class => 'control-label'
+      .controls
+        = text_field_tag 'identifier', AppSettings.harvest_identifier
+    .control-group
+      = label_tag 'secret', 'Harvest API Secret', :class => 'control-label'
+      .controls
+        = text_field_tag 'secret', AppSettings.harvest_secret
+    .form-actions
+      = submit_tag "Save", :class => 'btn btn-primary'
+      = link_to 'Cancel', settings_edit_harvest_path, :class => 'btn'

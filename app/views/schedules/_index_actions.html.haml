@@ -1,0 +1,13 @@
+- p actions
+- if actions.size > 0
+  %div{:style => "float:left; width:180px;"}
+    .btn-group
+      = link_to *(actions.shift)
+      - if actions.size > 0
+        %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+          %span.caret
+        %span.indicator{:style => "display:none; float:right;"}
+          = image_tag('/assets/icon-roller.gif')
+        %ul.dropdown-menu
+          - actions.each do |action|
+            %li= link_to *action

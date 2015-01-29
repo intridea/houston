@@ -1,0 +1,14 @@
+.nested-fields
+  .field.control-group
+    = f.label :date, :class => 'control-label'
+    .controls
+      = f.text_field :date, :class => 'milestone_date', 'data-provide' => 'datepicker', 'data-date-format' => "yyyy-mm-dd"
+      %span.help-block Format: yyyy-mm-dd
+  .field.control-group
+    = f.label :notes, :class => 'control-label'
+    .controls
+      = f.text_area :notes, rows: '3'
+  .control-group
+    .controls
+      = link_to_remove_association "Remove Milestone", f
+  %hr/

@@ -1,0 +1,14 @@
+= link_to "<< Back to Settings", settings_path
+.well
+  = form_for AppSettings, url: settings_update_google_path, method: :put do |f|
+    .control-group
+      = f.label 'Client ID', 'Google OAuth Client ID', :class => 'control-label'
+      .controls
+        = f.text_field :google_client_id
+    .control-group
+      = f.label 'Client Secret', 'Google OAuth Client Secret', :class => 'control-label'
+      .controls
+        = f.password_field :google_client_secret, value: AppSettings.google_client_secret
+    .form-actions
+      = submit_tag "Save", :class => 'btn btn-primary'
+      = link_to 'Cancel', settings_edit_google_path, :class => 'btn'

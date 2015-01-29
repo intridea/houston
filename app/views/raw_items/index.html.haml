@@ -1,0 +1,28 @@
+%h1 Raw Items
+%p{:style => "color:red;"} Note: This data is loaded from Google SpreadSheet
+%table.table.table-striped
+  %thead
+    %tr
+      %th ID
+      %th ROW NO.
+      %th Status
+      %th Resource
+      %th Client
+      %th Project
+      %th Skill
+      %th Billable
+      %th Actions
+  %tbody
+    - @raw_items.each do |raw_item|
+      %tr
+        %td= raw_item.id
+        %td= raw_item.row
+        %td= raw_item.status
+        %td= raw_item.user.name
+        %td{:style => "width: 20%;"}= raw_item.client
+        %td= raw_item.project
+        %td= raw_item.skill
+        %td= raw_item.billable
+        %td
+          - if can? :destroy, raw_item
+            = link_to 'Destroy', raw_item_path(raw_item), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger'

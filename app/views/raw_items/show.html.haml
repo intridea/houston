@@ -1,0 +1,29 @@
+%h1 Raw Item
+%p
+  %b Status
+  %br/
+  = @raw_item.status
+%p
+  %b User
+  %br/
+  = @raw_item.user_id
+%p
+  %b Client
+  %br/
+  = @raw_item.client
+%p
+  %b Project
+  %br/
+  = @raw_item.project
+%p
+  %b Skill
+  %br/
+  = @raw_item.skill
+%p
+  %b Billable
+  %br/
+  = @raw_item.billable
+.form-actions
+  = link_to 'Back', raw_items_path, :class => 'btn'
+  = link_to 'Edit', edit_raw_item_path(@raw_item), :class => 'btn'
+  = link_to 'Delete', raw_item_path(@raw_item), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger'
