@@ -1,0 +1,21 @@
+%h1 Doc Auths
+%table.table.table-striped
+  %thead
+    %tr
+      %th ID
+      %th Key
+      %th Current?
+      %th Created at
+      %th Actions
+  %tbody
+    - @doc_auths.each do |doc_auth|
+      %tr
+        %td= doc_auth.id
+        %td= link_to doc_auth.key, doc_auth_path(doc_auth)
+        %th= doc_auth.current?
+        %td= doc_auth.created_at
+        %td
+          - if can? :update, doc_auth
+            = link_to 'Edit', edit_doc_auth_path(doc_auth), :class => 'btn btn-mini'
+- if can? :create, DocAuth
+  = link_to 'New Google Spreadsheet', new_doc_auth_path, :class => 'btn btn-primary'

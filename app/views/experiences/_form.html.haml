@@ -1,0 +1,31 @@
+= form_for(@experience) do |f|
+  - if @experience.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@experience.errors.count, "error")
+        prohibited this experience from being saved:
+      %ul
+        - @experience.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :level
+    %br/
+    = f.number_field :level
+  .field
+    = f.label :notes
+    %br/
+    = f.text_field :notes
+  .field
+    = f.label :skill_id
+    %br/
+    = f.number_field :skill_id
+  .field
+    = f.label :user_id
+    %br/
+    = f.number_field :user_id
+  .field
+    = f.label :years
+    %br/
+    = f.text_field :years
+  .actions
+    = f.submit

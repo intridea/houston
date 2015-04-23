@@ -1,0 +1,23 @@
+%h1 Listing experiences
+%table
+  %tr
+    %th Level
+    %th Notes
+    %th Skill
+    %th User
+    %th Years
+    %th
+    %th
+    %th
+  - @experiences.each do |experience|
+    %tr
+      %td= experience.level
+      %td= experience.notes
+      %td= experience.skill_id
+      %td= experience.user_id
+      %td= experience.years
+      %td= link_to 'Show', experience
+      %td= link_to 'Edit', edit_experience_path(experience)
+      %td= link_to 'Destroy', experience, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Experience', new_experience_path

@@ -1,0 +1,15 @@
+.row
+  .col-md-12.vis-header
+    %h2.pull-left Get 'er done...
+    %button.pull-right.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+      Everyone
+      %span.caret
+      = projects_chart_user_select
+    %button.pull-right.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+      Clients
+      %span.caret
+      = projects_chart_client_select
+    %a.pull-right.vis-link{:href => "#my_schedule"} My Schedule
+.row
+  #main-vis
+    .projects_chart

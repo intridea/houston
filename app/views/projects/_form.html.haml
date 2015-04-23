@@ -1,0 +1,96 @@
+= form_for setup_project(@project), :html => { :class => 'form-horizontal projects' } do |f|
+  .control-group
+    = f.label :client, :class => 'control-label'
+    .controls
+      = f.text_field :client, :class => 'text_field'
+  .control-group
+    = f.label :name, :class => 'control-label'
+    .controls
+      = f.text_field :name, :class => 'text_field'
+  .control-group
+    = f.label :project_manager, :class => 'control-label'
+    .controls
+      = f.select :project_manager, options_for_select(@project_managers, selected: @project.project_manager), include_blank: true, size: 3, class: "span1"
+  .control-group
+    = f.label :date_signed, :class => 'control-label'
+    .controls
+      = f.date_select :date_signed, :class => 'date_select'
+  .control-group
+    = f.label :date_kickoff, :class => 'control-label'
+    .controls
+      = f.date_select :date_kickoff, :class => 'date_select'
+  .control-group
+    = f.label :date_target, :class => 'control-label'
+    .controls
+      = f.date_select :date_target, :class => 'date_select'
+  .control-group
+    = f.label :is_confirmed, :class => 'control-label'
+    .controls
+      = f.check_box :is_confirmed, :class => 'check_box'
+      - if @project.is_confirmed?
+        %span.help-block= confirmed_info(@project)
+  .control-group
+    = f.label :date_delivered, :class => 'control-label'
+    .controls
+      = f.date_select :date_delivered, :class => 'date_select'
+  .control-group
+    = f.label :is_delivered, :class => 'control-label'
+    .controls
+      = f.check_box :is_delivered, :class => 'check_box'
+  .control-group
+    = f.label :status, :class => 'control-label'
+    .controls
+      = f.select :status, options_for_select(["green", "yellow", "red", "pipeline"], selected: f.object.status), include_blank: true, size: 3, class: "span1"
+  .control-group
+    = f.label "% Complete", :class => 'control-label'
+    .controls
+      = f.text_field :percent_complete, :class => 'text_field'
+      %span.help-block ex. 0.90
+  .control-group
+    = f.label "Bug Tracker", :class => 'control-label'
+    .controls
+      = f.text_field :url_pmtool, :class => 'text_field'
+      %span.help-block ex. http://company.atlassian.com/browse/PROJ
+  .control-group
+    = f.label "Demo", :class => 'control-label'
+    .controls
+      = f.text_field :url_demo, :class => 'text_field'
+      %span.help-block ex. http://awesome.herokuapp.com
+  .control-group
+    = f.label :hours_budget, :class => 'control-label'
+    .controls
+      = f.text_field :hours_budget, :class => 'text_field'
+  .control-group
+    = f.label :hours_used, :class => 'control-label'
+    .controls
+      = f.text_field :hours_used, :class => 'text_field'
+  .control-group
+    = f.label :rate, :class => 'control-label'
+    .controls
+      = f.text_field :rate, :class => 'text_field'
+  .control-group
+    = f.label :comment, :class => 'control-label'
+    .controls
+      = f.text_area :comment, :class => 'text_area span4', :rows => 5
+      %span.help-block Supports Markdown
+  /
+    <h3>Milestones</h3><hr>
+    <div id="milestones">
+    <haml_loud> f.fields_for :milestones do |milestone| </haml_loud><haml_block>
+    <haml_loud> render 'milestone_fields', :f =&gt; milestone </haml_loud>
+    </haml_block>    <div class="links">
+    <haml_silent>
+    </haml_silent>    </div>
+    </div>
+  %h3 Skills
+  .control-group.skills
+    = f.fields_for :required_skills do |ff|
+      .controls
+        = ff.hidden_field :skill_id
+        = ff.check_box :_destroy, {:checked => ff.object.persisted?}, '0', '1'
+        = ff.label :_destroy, ff.object.skill.name, :class => 'checkbox inline'
+        = ff.select :level, options_for_select([1,2,3,4,5], selected: ff.object.level), include_blank: true, size: 3, class: "span1"
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), |
+      projects_path, :class => 'btn'                               |

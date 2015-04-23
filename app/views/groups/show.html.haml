@@ -1,0 +1,24 @@
+%h1 Group
+%br/
+%p
+%h4 Name
+= @group.name
+%p
+%h4 CC
+= @group.cc
+%p
+%h4 From
+= @group.from
+%p
+%h4 Message
+= @group.message
+%p
+%h4 Ending Content
+= @group.ending_content
+.form-actions
+  - if can? :index, Group
+    = link_to 'Back', groups_path, :class => 'btn'
+  - if can? :update, @group
+    = link_to 'Edit', edit_group_path(@group), :class => 'btn'
+  - if can? :destroy, @group
+    = link_to 'Delete', group_path(@group), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger'

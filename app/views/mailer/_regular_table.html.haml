@@ -1,0 +1,25 @@
+- border = '1'
+- bgcolor = 'white'
+- if builder.schedule.daily_schedule.present?
+  %p
+    - builder.schedule.daily_schedule.each do |i, name, project_hours|
+      %strong
+        = name
+        \:
+      = project_hours_summary(project_hours)
+      %br/
+%table{:border => border, :cellpadding => "3", :cellspacing => "0"}
+  %tr
+    %td{:align => "center", :bgcolor => bgcolor} Client
+    %td{:align => "center", :bgcolor => bgcolor} Project
+    %td{:align => "center", :bgcolor => bgcolor} PM
+    = schedule_hours_cells(builder.hours_headers, bgcolor)
+  - builder.summary(:regular)[:raw_items].each_with_index do |item, i|
+    %tr
+      %td{:bgcolor => bgcolor}= item.client
+      %td{:bgcolor => bgcolor}= item.project
+      %td{:bgcolor => bgcolor}= item.linked_project.project_manager
+      = schedule_hours_cells(builder.summary(:regular)[:hours][i], bgcolor)
+  %tr
+    %td{:align => "center", :bgcolor => bgcolor, :colspan => "3"} Total Hours
+    = schedule_hours_cells(builder.summary(:regular)[:totals], bgcolor)

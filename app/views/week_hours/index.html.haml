@@ -1,0 +1,20 @@
+%h1 Week Hours
+%table.table.table-striped
+  %thead
+    %tr
+      %th ID
+      %th User
+      %th Week
+      %th Hours
+      %th Actions
+  %tbody
+    - @week_hours.each do |week_hour|
+      %tr
+        %td= week_hour.id
+        %td= week_hour.raw_item.user.name
+        %td= week_hour.week.to_date.to_s(:db)
+        %td= week_hour.hours
+        %td
+          = link_to 'Edit', edit_week_hour_path(week_hour), :class => 'btn btn-mini'
+          = link_to 'Destroy', week_hour_path(week_hour), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger'
+= link_to 'New', new_week_hour_path, :class => 'btn btn-primary'

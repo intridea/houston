@@ -1,0 +1,35 @@
+- model_class = Skill
+.page-header
+  %h1= t '.title', :default => model_class.model_name.human
+%dl.dl-horizontal
+  %dt
+    %strong= model_class.human_attribute_name(:name)
+  %dd= @skill.name
+  %dt
+    %strong= model_class.human_attribute_name(:importance)
+  %dd= raw @skill.importance || "&nbsp; "
+  %dt Users
+  %dd
+    %ul.inline
+      - @skill.experiences.each do |e|
+        %li.skill{:class => "skill-level-\#{e.level}"}
+          = e.user.name
+          \&#160;
+          \#{e.level}
+.form-actions
+  - if can? :index, Skill
+    = link_to t('.back', :default => t("helpers.links.back")), |
+      skills_path,                                             |
+      :class => 'btn'                                          |
+  - if can? :update, @skill
+    = link_to t('.edit', :default => t("helpers.links.edit")), |
+      edit_skill_path(@skill),                                 |
+      :class => 'btn'                                          |
+  - if can? :destroy, @skill
+    = link_to t('.destroy', :default => t("helpers.links.destroy")), |
+      skill_path(@skill),                                            |
+      :method => 'delete',                                           |
+      :data => { :confirm => t('.confirm',                           |
+                 :default => t("helpers.links.confirm",              |
+                 :default => 'Are you sure?')) },                    |
+      :class => 'btn btn-danger'                                     |

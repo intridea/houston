@@ -1,0 +1,35 @@
+- content_for :notification_bar do
+  - if @pending_leave_requests.present?
+    .alert.alert-success
+      = pluralize(@pending_leave_requests.size, 'leave request')
+      = link_to 'pending approval', leave_requests_url
+= render :partial => "announcements"
+= render :partial => "projects_chart"
+.row
+  .col-md-12
+    %h5 Legend
+#lower-vis
+  .row.full
+    .col-md-4.my_schedule_container
+      = render 'my_schedule'
+    = render :partial => "faq"
+    .col-md-4
+      - if current_user
+        = render 'leave_requests/recent_leave_requests_panel', { |
+          leave_requests: current_user.leave_requests.recent }   |
+  .row.full
+    .col-md-6
+      = render :partial => "pto"
+    .col-md-6
+      .vis-mod.leveling_up
+        %button.pull-right.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+          Frameworks/Libs
+          %span.caret
+        %button.pull-right.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+          UX Engineering
+          %span.caret
+        %h3 We're leveling up
+        / <p>Here's what's trending from Github commits.</p>
+        %p Coming soon - stay tuned!
+        %img.vis{:src => "/assets/commit_graph.png", :style => "opacity:0.2"}/
+  = render 'leave_requests/leave_request_modal', leave_request: LeaveRequest.new

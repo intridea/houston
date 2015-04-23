@@ -1,0 +1,18 @@
+%p#notice= notice
+%p
+  %b Level:
+  = @experience.level
+%p
+  %b Notes:
+  = @experience.notes
+%p
+  %b Skill:
+  = @experience.skill_id
+%p
+  %b User:
+  = @experience.user_id
+%p
+  %b Years:
+  = @experience.years
+= link_to 'Edit', edit_experience_path(@experience)
+= link_to 'Back', experiences_path

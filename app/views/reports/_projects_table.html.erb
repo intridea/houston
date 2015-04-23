@@ -1,8 +1,4 @@
-<%
-
-delivered ||= false
-
- %>
+<% delivered ||= false %>
 
 <table class="table table-bordered table-striped table-condensed">
 <thead>
@@ -39,14 +35,27 @@ delivered ||= false
       <%= link_to proj.name, "#", :class => "popover-trigger"  %>
       <%= render partial: 'project_popover', locals: { proj: proj } %>
     </td>
-    <td class="launch-pmtool"><%= link_to("go", proj.url_pmtool, :title => "Bug tracker: #{proj.url_pmtool}", :class => proj.pmtool_type) if proj.url_pmtool.present? %></td>
-    <td class="launch-demo"><%= link_to("go", proj.url_demo, :title => "Demo: #{proj.url_demo}") if proj.url_demo.present? %></td>
+    <td class="launch-pmtool">
+      <%= link_to("go", proj.url_pmtool, 
+                  :title => "Bug tracker: #{proj.url_pmtool}", 
+                  :class => proj.pmtool_type) if proj.url_pmtool.present? %>
+    </td>
+    <td class="launch-demo">
+      <%= link_to("go", proj.url_demo, 
+                  :title => "Demo: #{proj.url_demo}") if proj.url_demo.present? %>
+    </td>
     <td><%= proj.project_manager %></td>
-    <td<%= " class='#{td_css.join(' ')}'".html_safe unless td_css.empty? %>><%= proj.date_delivered.to_s(:xshort) %></td>
-    <td<%= " class='#{td_css.join(' ')}'".html_safe unless td_css.empty? %>><%= proj.date_target.to_s(:xshort) %></td>
-    <td class="muted"><%= proj.date_kickoff.to_s(:xshort) %></td>
+    <td<%= " class='#{td_css.join(' ')}'".html_safe unless td_css.empty? %>><%= proj.date_delivered.to_s(:xshort) %>
+    </td>
+    <td<%= " class='#{td_css.join(' ')}'".html_safe unless td_css.empty? %>><%= proj.date_target.to_s(:xshort) %>
+    </td>
+    <td class="muted">
+      <%= proj.date_kickoff.to_s(:xshort) %>
+    </td>
     <td><%= proj.hours_used.to_i %></td>
-    <td<%= " class='text-error'".html_safe + " title='Over-budget (out of #{proj.hours_budget.to_i})'".html_safe if (proj.hours_used.to_i || 0) > (proj.hours_budget.to_i || 0) %>><%= ((proj.hours_budget.to_i || 0) - (proj.hours_used.to_i || 0)) %></td>
+    <td<%= " class='text-error'".html_safe + " title='Over-budget (out of #{proj.hours_budget.to_i})'".html_safe if (proj.hours_used.to_i || 0) > (proj.hours_budget.to_i || 0) %>>
+      <%= ((proj.hours_budget.to_i || 0) - (proj.hours_used.to_i || 0)) %>
+    </td>
   </tr>
   <% end %>
 <% else %>

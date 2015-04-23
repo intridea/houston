@@ -1,0 +1,24 @@
+.span3.btn-group.filter.pull-right
+  %a.btn.dropdown-toggle.pull-right{"data-toggle" => "dropdown", :href => "#"}
+    Filter:
+    - unless params[:skill].blank?
+      %em= params[:skill]
+    - else
+      %em Skill (PM, UX, Rails, etc.)
+    %span.caret
+  %ul.dropdown-menu.pull-left
+    %li= link_to "All", reports_path(:anchor => "bench")
+    - @skills.each do |skill|
+      %li= link_to skill, reports_path(:skill => skill, :anchor => "bench")
+.span3.btn-group.filter.pull-right
+  %a.btn.dropdown-toggle.pull-right{"data-toggle" => "dropdown", :href => "#"}
+    Filter:
+    - unless params[:team].blank?
+      %em= params[:team]
+    - else
+      %em Team (PM, UX, Rails, etc.)
+    %span.caret
+  %ul.dropdown-menu
+    %li= link_to "All", reports_path()
+    - @teams.each do |team|
+      %li= link_to team, reports_path(:team => team, :anchor => "bench")

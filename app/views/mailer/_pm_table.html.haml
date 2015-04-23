@@ -1,0 +1,17 @@
+- border = '1'
+- bgcolor = 'white'
+%table{:border => border, :cellpadding => "3", :cellspacing => "0"}
+  %tr
+    %td{:align => "center", :bgcolor => bgcolor} Client
+    %td{:align => "center", :bgcolor => bgcolor} Project
+    %td{:align => "center", :bgcolor => bgcolor} Engineer
+    = schedule_hours_cells(builder.hours_headers, bgcolor)
+  - last_client = last_project = nil
+  - builder.summary(:pm)[:raw_items].each_with_index do |item, i|
+    %tr
+      %td{:bgcolor => bgcolor}= item.client if item.client != last_client
+      %td{:bgcolor => bgcolor}= item.project if item.project != last_project
+      %td{:bgcolor => bgcolor}= item.user_name
+      = schedule_hours_cells(builder.summary(:pm)[:hours][i], bgcolor)
+      - last_client = item.client
+      - last_project = item.project

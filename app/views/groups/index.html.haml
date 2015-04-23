@@ -1,0 +1,24 @@
+%h1 Groups
+%table.table.table-striped
+  %thead
+    %tr
+      %th Group Name
+      %th Display in list
+  %tbody
+    - @groups.each do |group|
+      - @group = group
+      %tr
+        %td= @group.name
+        %td= @group.display?
+        %td
+          - if can? :show, group
+            = link_to 'Show', group_path(group), :class => 'btn btn-mini'
+          - if can? :update, group
+            = link_to 'Edit', edit_group_path(group), :class => 'btn btn-mini'
+          - if can? :destroy, group
+            = link_to 'Destroy', group_path(group), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger'
+- if can? :create, Group
+  = link_to 'New', new_group_path, :class => 'btn btn-primary'
+= succeed "/" do
+  %br/
+%br/

@@ -1,0 +1,34 @@
+%h1 User
+%p
+  %b Name
+  %br/
+  = @user.name
+%p
+  %b Email
+  %br/
+  = @user.email
+%p
+  %b Is pm
+  %br/
+  = @user.is_pm
+%b Skills
+%ul.inline
+  - @user.experiences.each do |e|
+    %li.skill{:class => "skill-level-#{e.level}"}
+      = e.skill.name
+      \&#160;
+      \#{e.level}
+%b Projects
+%ul.inline
+  - @matched_projects.each do |match|
+    %li
+      = match[0]
+      \&#160;
+      \#{match[1]}
+.form-actions
+  - if can? :index, User
+    = link_to 'Back', users_path, :class => 'btn'
+  - if can? :update, @user
+    = link_to 'Edit', edit_user_path(@user), :class => 'btn'
+  - if can? :destroy, @user
+    = link_to 'Delete', user_path(@user), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger'

@@ -1,0 +1,5 @@
+%li
+  %a.btn.btn-default.navbar-btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"} Switch User
+  %ul#nav-switch-user.dropdown-menu{:role => "menu"}
+    - User.all.each do |u|
+      %li= link_to u.name, switch_user_path(name: u.name)

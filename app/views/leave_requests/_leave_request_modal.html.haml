@@ -1,0 +1,5 @@
+#leaveRequestModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "leaveRequestModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3#leaveRequestModalLabel Leave Request
+  = render 'leave_requests/form', leave_request: leave_request

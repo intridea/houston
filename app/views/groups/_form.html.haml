@@ -1,0 +1,34 @@
+= form_for @group, :html => { :class => 'form-horizontal' } do |f|
+  %fieldset
+    %legend
+      = controller.action_name.capitalize
+      Group
+    .control-group
+      = f.label :name, :class => 'control-label'
+      .controls
+        = f.text_field :name, :class => 'text_field'
+    .control-group
+      .controls
+        %label.checkbox
+          = f.check_box :display
+          Active (display in list and send email)
+    %legend Custom Group Email
+    .control-group
+      = label_tag 'From', nil, :class => 'control-label'
+      .controls
+        = f.select :from, options_for_select(@users_for_select, @group.from), :prompt => 'Select From', :style => "width:385px;", :class => 'text_field chzn-select'
+    .control-group
+      = label_tag 'CC', nil, :class => 'control-label'
+      .controls
+        = f.select :cc, options_for_select(@users_for_select, @group.cc), {}, :multiple => true, :prompt => 'Select Some People', :style => "width:385px;", :class => 'text_field chzn-select'
+    .control-group
+      = label_tag "Message", nil, :class => 'control-label'
+      .controls
+        = f.text_area :message, :class => 'text_area', :style => "width:385px;height:200px;"
+    .control-group
+      = label_tag "Ending Content", nil, :class => 'control-label'
+      .controls
+        = f.text_area :ending_content, :class => 'text_area', :style => "width:385px;height:200px;"
+    .form-actions
+      = f.submit nil, :class => 'btn btn-primary'
+      = link_to 'Cancel', groups_path, :class => 'btn'
